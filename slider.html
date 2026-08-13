@@ -5,39 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ar.Ti Off The Wall 3D Carousel</title>
     <style>
-        /* Global Base Settings */
         body {
             margin: 0;
             padding: 0;
-            /* Locked your custom graffiti brick wall as the permanent main background */
+            /* Uses your exact graffiti brick wall as the permanent background */
             background-image: url('https://static.wixstatic.com/media/d89c2f_a52daac133f74cbc86c1b7de2433a35a~mv2.png'); 
             background-size: cover;
-            background-position: center center;
+            background-position: center right;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            
             font-family: system-ui, -apple-system, sans-serif;
             display: flex;
-            justify-content: flex-start; /* Aligns content strictly to the left side of the screen */
+            justify-content: flex-start; 
             align-items: center;
-            height: 600px;
+            height: 100vh; /* Forces the box to take up the full available screen height */
             overflow: hidden;
-            padding-left: 60px; /* Spacing away from the absolute left screen edge */
+            padding-left: 60px; 
             box-sizing: border-box;
-            position: relative;
         }
 
-        /* Main Container Outer Bounds */
         .slider-container {
             position: relative;
-            width: 500px; /* Narrowed width boundaries to keep the carousel strictly on the left half */
+            width: 500px; 
             height: 480px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* The Viewport Mask Layer */
         .slider-wrapper {
             position: relative;
             width: 100%;
@@ -48,7 +43,6 @@
             overflow: hidden;
         }
 
-        /* The Structural Track */
         .slider-track {
             position: relative;
             width: 320px;  
@@ -59,7 +53,6 @@
             align-items: center;
         }
 
-        /* Balanced Portrait Slide Frame - Shifted Left to clear the background graffiti artwork */
         .apparel-slide {
             position: absolute;
             width: 300px;  
@@ -68,33 +61,28 @@
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75);
-            background: #111111; /* Deep dark matte back-cushion styling */
+            background: #111111; 
             border: 1px solid rgba(255, 255, 255, 0.12);
-            
-            /* Smooth layout transitions */
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s, filter 0.6s;
-            opacity: 0; 
+            opacity: 1; /* FORCED ON: Setting this to 1 immediately so you can see the frames even if the music locks up */
         }
 
-        /* Image Fit Containment Engine within Portrait Boundaries */
         .apparel-slide img {
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Shrinks horizontal photos to fit inside the portrait frame without cropping */
+            object-fit: contain; 
             pointer-events: none;
         }
 
-        /* Navigation Arrows styled cleanly to stay near the left-hand track */
         .slider-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             background: rgba(0, 0, 0, 0.85);
             color: #FFFFFF;
-            border: 0px solid rgba(255, 255, 255, 0.2);
-            width: 34px;
-            height: 34px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.1rem;
@@ -102,24 +90,18 @@
             align-items: center;
             justify-content: center;
             z-index: 100;
-            transition: background 0.2s;
             user-select: none;
-        }
-
-        .slider-arrow:hover {
-            background: #C0C0C0;
-            color: #000000;
+            border: none;
         }
 
         .prev-arrow { left: -10px; } 
         .next-arrow { right: -10px; }
 
-        /* Floating Urban Audio Activation Button Layout Controls */
         .audio-control-btn {
             position: absolute;
-            bottom: 0px;
-            left: 215px; 
-            background: #000000; /* Distinct color prompting users to unlock the system */
+            bottom: 25px;
+            left: 60px; 
+            background: #000000; 
             color: #FFFFFF;
             border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 12px 22px;
@@ -127,127 +109,60 @@
             font-size: 0.9rem;
             font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: background 0.2s, transform 0.2s;
-            user-select: none;
-            letter-spacing: 0.5px;
         }
 
-        .audio-control-btn:hover {
-            background: #C0C0C0;
-            color: #000000;
-            transform: scale(1.05);
-        }
-
-        /* Responsive Mobile Breaks - Centers slider on small smartphone views */
         @media (max-width: 768px) {
-            body { 
-                justify-content: center; 
-                padding-left: 0; 
-            }
+            body { justify-content: center; padding-left: 0; }
             .slider-container { width: 100%; max-width: 340px; height: 380px; }
-            .slider-track { width: 220px; height: 320px; }
             .apparel-slide { width: 200px; height: 300px; }
-            .slider-arrow { width: 38px; height: 38px; }
-            .prev-arrow { left: 5px; }
-            .next-arrow { right: 5px; }
-            .audio-control-btn {
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 15px;
-            }
-            .audio-control-btn:hover {
-                transform: translateX(-50%) scale(1.05);
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Hidden Background Audio Player (Loops automatically) -->
-    <audio id="bg-audio-player" loop prefetch="auto">
-        <!-- FIXED: Your exact audio link is now permanently locked into place here -->
-        <source src="https://static.wixstatic.com/mp3/d89c2f_2286137db53b4fa8a0457672d8d8187a.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+    <audio id="bg-audio-player" loop>
+        <source src="https://static.wixstatic.com/mp3/d89c2f_2286137db53b4fa8a0457672d8d8187a.mp3" data-title="Human Nature" data-artist="Michael Jackson Hoodtrap Remix"></li>
+        </ul>" type="audio/mpeg">
     </audio>
 
-    <!-- Interactive Toggle Interface Button -->
     <button class="audio-control-btn" id="audio-toggle" onclick="toggleAudioVolume()">
-        <span id="audio-text">PLAY BEAT</span>
+        PLAY BEAT
     </button>
 
-    <!-- MAIN CAROUSEL ENGINE CONTAINER (Anchored to the left) -->
     <div class="slider-container">
         <button class="slider-arrow prev-arrow" onclick="movePrev()">❮</button>
-        
         <div class="slider-wrapper">
             <div class="slider-track" id="apparel-track">
                 
-                <!-- Slide 1 (Index 0): The Arcade Tee -->
+                <div class="apparel-slide" onclick="clickSlide(0)">
+                    <img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="Slide 1">
+                </div>
+
                 <div class="apparel-slide" onclick="clickSlide(1)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="DNA Grounded Wall Feature">
+                    <img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="Slide 2">
                 </div>
 
-                <!-- Slide 2 (Index 1): The Arcade Tee Pose -->
                 <div class="apparel-slide" onclick="clickSlide(2)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_7e0f84f40bb24b93b457c1f6e8fe2bdd~mv2.png" alt="The Arcade Tee Showcase">
-                </div>
-
-                <!-- Slide 3 (Index 2): The Arcade Tee -->
-                <div class="apparel-slide" onclick="clickSlide(3)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="The Arcade Tee">
+                    <img src="https://wixstatic.com" alt="Slide 3">
                 </div> 
                   
-                <!-- Slide 4 (Index 3): Women's Pasifika Hood -->
-                <div class="apparel-slide" onclick="clickSlide(4)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_b65cfa9267d84c3ebb0adad33f3eabab~mv2.png" alt="Women's Pasifika Hood">
+                <div class="apparel-slide" onclick="clickSlide(3)">
+                    <img src="https://wixstatic.com" alt="Slide 4">
                 </div>                
    
             </div>
         </div>
-
         <button class="slider-arrow next-arrow" onclick="moveNext()">❯</button>
     </div>
 
 <script>
-    // Hidden internal data structure array mapping item content data details
-    const myShowcaseGear = [
-        { 
-            title: "DNA Grounded Drop 01", 
-            description: "Original custom streetwear built for culture and heritage depth.",
-            link: "#"
-        },
-        { 
-            title: "The Arcade Hood", 
-            description: "Premium heavy cotton cut. Engineered for daily street comfort.",
-            link: "#"
-        },
-        { 
-            title: "The Arcade Tee", 
-            description: "Custom geometric chest typography print detailing raw street style.",
-            link: "#"
-        },
-        { 
-            title: "USO Pasifika Hood", 
-            description: "Limited run olive green pullover paired with matching branded beanie profiles.",
-            link: "#"
-        }
-    ];
-
     const track = document.getElementById('apparel-track');
     const slides = Array.from(track.children);
     let currentIndex = 0;
-
-    // Audio Elements References
     const audio = document.getElementById('bg-audio-player');
     const audioButton = document.getElementById('audio-toggle');
-    const audioIcon = document.getElementById('audio-icon');
-    const audioText = document.getElementById('audio-text');
-    let hasInteracted = false;
 
     function updateSlider() {
         const total = slides.length;
@@ -255,12 +170,47 @@
 
         slides.forEach((slide, index) => {
             let offset = index - currentIndex;
-            
-            // Loop calculations to prevent structural gridlock
             if (offset < -Math.floor(total / 2)) offset += total;
             if (offset > Math.floor(total / 2)) offset -= total;
-
             const absOffset = Math.abs(offset);
             
             if (offset === 0) {
-                // ACTIVE CENTER SLIDE: Pushed forward into focus space
+                slide.style.transform = `translateX(0px) scale(1.05) rotateY(0deg) translateZ(60px)`;
+                slide.style.zIndex = "10";
+                slide.style.opacity = "1";
+                slide.style.filter = "none";
+            } else if (offset > 0) {
+                slide.style.transform = `translateX(${offset * 110}px) scale(0.8) rotateY(-30deg) translateZ(-40px)`;
+                slide.style.zIndex = String(5 - Math.ceil(absOffset));
+                slide.style.opacity = "0.35"; 
+                slide.style.filter = "blur(2px) brightness(0.45)";
+            } else if (offset < 0) {
+                slide.style.transform = `translateX(${offset * 110}px) scale(0.8) rotateY(30deg) translateZ(-40px)`;
+                slide.style.zIndex = String(5 - Math.ceil(absOffset));
+                slide.style.opacity = "0.35"; 
+                slide.style.filter = "blur(2px) brightness(0.45)";
+            } else {
+                slide.style.opacity = "0";
+                slide.style.zIndex = "1";
+            }
+        });
+    }
+
+    function toggleAudioVolume() {
+        if (audio.paused) {
+            audio.play().catch(err => alert("Wix frame is blocking audio permissions. Please check your Wix settings toggles."));
+            audioButton.textContent = "MUTED";
+        } else {
+            audio.pause();
+            audioButton.textContent = "PLAY BEAT";
+        }
+    }
+
+    function clickSlide(index) { currentIndex = index; updateSlider(); }
+    function moveNext() { currentIndex = (currentIndex + 1) % slides.length; updateSlider(); }
+    function movePrev() { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateSlider(); }
+
+    updateSlider();
+</script>
+</body>
+</html>
