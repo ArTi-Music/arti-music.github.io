@@ -8,31 +8,29 @@
         body {
             margin: 0;
             padding: 0;
-            /* Uses your exact graffiti brick wall as the permanent background */
-            background-image: url('https://static.wixstatic.com/media/d89c2f_a52daac133f74cbc86c1b7de2433a35a~mv2.png'); 
-            background-size: cover;
-            background-position: top right;
+            background-image: url('https://static.wixstatic.com/media/d89c2f_5282dbc2f5db496fb82e7c33ed42fcaa~mv2.png'); 
+            background-size: left;
+            background-position: left;
             background-repeat: no-repeat;
             background-attachment: fixed;
             font-family: system-ui, -apple-system, sans-serif;
             display: flex;
             justify-content: flex-start; 
             align-items: center;
-            height: 100vh; /* Forces the box to take up the full available screen height */
+            height: 100vh; 
             overflow: hidden;
             padding-left: 50px; 
             box-sizing: border-box;
+            position: relative;
         }
-
         .slider-container {
             position: relative;
-            width: 420px; 
+            width: 360px; 
             height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .slider-wrapper {
             position: relative;
             width: 100%;
@@ -42,17 +40,15 @@
             justify-content: center;
             overflow: hidden;
         }
-
         .slider-track {
             position: relative;
             width: 380px;  
             height: 540px; 
             transform-style: preserve-3d;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: right;
+            align-items: center right;
         }
-
         .apparel-slide {
             position: absolute;
             width: 400px;  
@@ -60,13 +56,12 @@
             border-radius: 14px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.75);
             background: #111111; 
             border: 1px solid rgba(255, 255, 255, 0.12);
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s, filter 0.6s;
-            opacity: 1; /* FORCED ON: Setting this to 1 immediately so you can see the frames even if the music locks up */
+            opacity: 1; 
         }
-
         .apparel-slide img {
             display: block;
             width: 100%;
@@ -74,37 +69,14 @@
             object-fit: contain; 
             pointer-events: none;
         }
-
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            color: #FFFFFF;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            user-select: none;
-            border: none;
-        }
-
-        .prev-arrow { left: -10px; } 
-        .next-arrow { right: -10px; }
-
         .audio-control-btn {
             position: absolute;
-            bottom: 65px;
-            left: 220px; 
+            bottom: 131px;
+            left: 200px; 
             background: #000000; 
             color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 22px;
+            border: 0px solid rgba(255, 255, 255, 0.3);
+            padding: 0px 0px;
             border-radius: 25px;
             font-size: 0.9rem;
             font-weight: bold;
@@ -112,66 +84,59 @@
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-
-        @media (max-width: 768px) {
-            body { justify-content: center; padding-left: 0; }
-            .slider-container { width: 100%; max-width: 340px; height: 380px; }
-            .apparel-slide { width: 200px; height: 300px; }
-        }
     </style>
 </head>
 <body>
 
-    <audio id="bg-audio-player" loop>
-        <source src="https://static.wixstatic.com/mp3/d89c2f_2286137db53b4fa8a0457672d8d8187a.mp3" data-title="Human Nature" data-artist="Michael Jackson Hoodtrap Remix"></li>
-        </ul>" type="audio/mpeg">
+    <!-- Native Audio Element with inline fallback attributes -->
+    <audio id="bg-audio-player" loop crossorigin="anonymous">
+        <source src="https://static.wixstatic.com/mp3/d89c2f_2286137db53b4fa8a0457672d8d8187a.mp3" type="audio/mpeg">
     </audio>
 
-    <button class="audio-control-btn" id="audio-toggle" onclick="toggleAudioVolume()">
+    <button class="audio-control-btn" id="audio-toggle">
         PLAY BEAT
     </button>
-
+    
     <div class="slider-container">
-        <button class="slider-arrow prev-arrow" onclick="movePrev()">❮</button>
         <div class="slider-wrapper">
             <div class="slider-track" id="apparel-track">
                 
-                <div class="apparel-slide" onclick="clickSlide(0)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="Slide 1">
+                <!-- PASTE YOUR CUSTOM IMAGES AND PRODUCT URLS INSIDE THESE FRAMES: -->
+                <div class="apparel-slide" data-index="0">
+                    <img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1">
                 </div>
-
-                <div class="apparel-slide" onclick="clickSlide(1)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="Slide 2">
+                <div class="apparel-slide" data-index="1">
+                    <img src="https://static.wixstatic.com/media/d89c2f_bb382e81730e4000bc657172c8c0a010~mv2.png" alt="Product 2">
                 </div>
-
-                <div class="apparel-slide" onclick="clickSlide(2)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Slide 3">
+                <div class="apparel-slide" data-index="2">
+                    <img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 3">
                 </div> 
-                  
-                <div class="apparel-slide" onclick="clickSlide(3)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_bb382e81730e4000bc657172c8c0a010~mv2.png" alt="Slide 4">
+                <div class="apparel-slide" data-index="3">
+                    <img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="Product 4">
                 </div> 
-                
-                <div class="apparel-slide" onclick="clickSlide(4)">
-                    <img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Slide 4">
+                <div class="apparel-slide" data-index="4">
+                    <img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 5">
                 </div> 
                 
             </div>
         </div>
-        <button class="slider-arrow next-arrow" onclick="moveNext()">❯</button>
     </div>
 
 <script>
     const track = document.getElementById('apparel-track');
     const slides = Array.from(track.children);
     let currentIndex = 0;
+    
     const audio = document.getElementById('bg-audio-player');
     const audioButton = document.getElementById('audio-toggle');
+    let rotationTimer = null;
+    const rotationSpeed = 3000;
 
+    // Bulletproof Slider Render Engine
     function updateSlider() {
         const total = slides.length;
         if (total === 0) return;
-
+        
         slides.forEach((slide, index) => {
             let offset = index - currentIndex;
             if (offset < -Math.floor(total / 2)) offset += total;
@@ -183,37 +148,67 @@
                 slide.style.zIndex = "10";
                 slide.style.opacity = "1";
                 slide.style.filter = "none";
-            } else if (offset > 0) {
-                slide.style.transform = `translateX(${offset * 110}px) scale(0.8) rotateY(-30deg) translateZ(-40px)`;
-                slide.style.zIndex = String(5 - Math.ceil(absOffset));
-                slide.style.opacity = "0.35"; 
-                slide.style.filter = "blur(2px) brightness(0.45)";
-            } else if (offset < 0) {
-                slide.style.transform = `translateX(${offset * 110}px) scale(0.8) rotateY(30deg) translateZ(-40px)`;
-                slide.style.zIndex = String(5 - Math.ceil(absOffset));
-                slide.style.opacity = "0.35"; 
-                slide.style.filter = "blur(2px) brightness(0.45)";
             } else {
-                slide.style.opacity = "0";
-                slide.style.zIndex = "1";
+                const directionX = offset > 0 ? 1 : -1;
+                const rotateYValue = offset > 0 ? -30 : 30;
+                slide.style.transform = `translateX(${offset * 110}px) scale(0.8) rotateY(${rotateYValue}deg) translateZ(-40px)`;
+                slide.style.zIndex = String(5 - Math.ceil(absOffset));
+                slide.style.opacity = "0.35"; 
+                slide.style.filter = "blur(2px) brightness(0.45)";
             }
         });
     }
 
-    function toggleAudioVolume() {
+    function moveNext() { 
+        currentIndex = (currentIndex + 1) % slides.length; 
+        updateSlider(); 
+    }
+
+    // Bind individual manual slide clicks directly via event listener
+    slides.forEach((slide) => {
+        slide.addEventListener('click', () => {
+            const idx = parseInt(slide.getAttribute('data-index'), 10);
+            if (!isNaN(idx)) {
+                currentIndex = idx;
+                updateSlider();
+            }
+        });
+    });
+
+    // Auto-Scroll Hover Handlers (Triggers over any visible screen element)
+    document.addEventListener('mouseenter', startRotation, true);
+    document.addEventListener('mouseover', startRotation, true);
+    document.addEventListener('mouseleave', stopRotation, true);
+
+    function startRotation() {
+        if (!rotationTimer) {
+            rotationTimer = setInterval(moveNext, rotationSpeed);
+        }
+    }
+
+    function stopRotation() {
+        if (rotationTimer) {
+            clearInterval(rotationTimer);
+            rotationTimer = null;
+        }
+    }
+
+    // Audio Interaction Fix for Custom Embed Frame Structures
+    audioButton.addEventListener('click', function() {
         if (audio.paused) {
-            audio.play().catch(err => alert("Wix frame is blocking audio permissions. Please check your Wix settings toggles."));
-            audioButton.textContent = "MUTED";
+            audio.play()
+                .then(() => { audioButton.textContent = "MUTED"; })
+                .catch(err => {
+                    console.log("Audio block error:", err);
+                    alert("Wix iframe policies are restricting audio playback permissions. Please click directly inside the frame canvas or review your Wix HTML Box permission toggles.");
+                });
         } else {
             audio.pause();
             audioButton.textContent = "PLAY BEAT";
         }
-    }
+    });
 
-    function clickSlide(index) { currentIndex = index; updateSlider(); }
-    function moveNext() { currentIndex = (currentIndex + 1) % slides.length; updateSlider(); }
-    function movePrev() { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateSlider(); }
-
+    // Initial Layout Fire
     updateSlider();
 </script>
 </body>
