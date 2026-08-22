@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('https://static.wixstatic.com/media/d89c2f_5282dbc2f5db496fb82e7c33ed42fcaa~mv2.png'); 
+            background-image: url('https://static.wixstatic.com/media/d89c2f_a4f950b5ae3443269f721780c2891589~mv2.png'); 
             background-size: left;
             background-position: left;
             background-repeat: no-repeat;
@@ -22,6 +22,8 @@
             padding-left: 50px; 
             box-sizing: border-box;
             position: relative;
+            /* Enable global 3D viewing perspective */
+            perspective: 1000px; 
         }
         .slider-container {
             position: relative;
@@ -30,6 +32,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: visible;
         }
         .slider-wrapper {
             position: relative;
@@ -38,29 +41,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible; /* Switched to visible to prevent 3D cropping */
         }
         .slider-track {
             position: relative;
             width: 380px;  
             height: 540px; 
-            transform-style: preserve-3d;
+            transform-style: preserve-3d; /* FIXED: Must be preserve-3d to display depth */
             display: flex;
-            justify-content: right;
-            align-items: center right;
+            justify-content: center;      /* FIXED: Balanced default alignment */
+            align-items: center;          /* FIXED: Clean standard syntax */
         }
         .apparel-slide {
             position: absolute;
-            width: 400px;  
-            height: 520px; 
-            border-radius: 14px;
+            width: 330px;  
+            height: 500px; 
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.75);
+            box-shadow: 0 45px 35px rgba(0, 0, 0, 0.75);
             background: #111111; 
             border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s, filter 0.6s;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s, filter 0.5s;
             opacity: 1; 
+            backface-visibility: hidden;
         }
         .apparel-slide img {
             display: block;
@@ -71,53 +75,37 @@
         }
         .audio-control-btn {
             position: absolute;
-            bottom: 131px;
-            left: 200px; 
+            bottom: 60px;
+            left: 160px; 
             background: #000000; 
             color: #FFFFFF;
             border: 0px solid rgba(255, 255, 255, 0.3);
-            padding: 0px 0px;
+            padding: 10px 20px; /* Added padding to give the button standard clickable structure */
             border-radius: 25px;
             font-size: 0.9rem;
             font-weight: bold;
             cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
     </style>
 </head>
 <body>
 
-    <!-- Native Audio Element with inline fallback attributes -->
     <audio id="bg-audio-player" loop crossorigin="anonymous">
         <source src="https://static.wixstatic.com/mp3/d89c2f_2a28902ec8cb46199d53e47f4098e2a0.mp3" type="audio/mpeg">
     </audio>
-
-    <button class="audio-control-btn" id="audio-toggle">
-        PLAY BEAT
-    </button>
+    <button class="audio-control-btn" id="audio-toggle">PLAY BEAT</button>
     
     <div class="slider-container">
         <div class="slider-wrapper">
             <div class="slider-track" id="apparel-track">
-                
-                <!-- PASTE YOUR CUSTOM IMAGES AND PRODUCT URLS INSIDE THESE FRAMES: -->
-                <div class="apparel-slide" data-index="0">
-                    <img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1">
-                </div>
-                <div class="apparel-slide" data-index="1">
-                    <img src="https://static.wixstatic.com/media/d89c2f_bb382e81730e4000bc657172c8c0a010~mv2.png" alt="Product 2">
-                </div>
-                <div class="apparel-slide" data-index="2">
-                    <img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 3">
-                </div> 
-                <div class="apparel-slide" data-index="3">
-                    <img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="Product 4">
-                </div> 
-                <div class="apparel-slide" data-index="4">
-                    <img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 5">
-                </div> 
-                
+                <div class="apparel-slide" data-index="0"><img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1"></div>
+                <div class="apparel-slide" data-index="1"><img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 2"></div>
+                <div class="apparel-slide" data-index="2"><img src="https://static.wixstatic.com/media/d89c2f_bb382e81730e4000bc657172c8c0a010~mv2.png" alt="Product 3"></div> 
+                <div class="apparel-slide" data-index="3"><img src="https://static.wixstatic.com/media/d89c2f_e3d59dc330ff49e9941d7d5218064dd4~mv2.png" alt="Product 4"></div> 
+                <div class="apparel-slide" data-index="4"><img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="Product 5"></div> 
+                <div class="apparel-slide" data-index="5"><img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="Product 6"></div> 
             </div>
         </div>
     </div>
@@ -125,6 +113,7 @@
 <script>
     const track = document.getElementById('apparel-track');
     const slides = Array.from(track.children);
+    const container = document.querySelector('.slider-container');
     let currentIndex = 0;
     
     const audio = document.getElementById('bg-audio-player');
@@ -132,7 +121,6 @@
     let rotationTimer = null;
     const rotationSpeed = 3000;
 
-    // Bulletproof Slider Render Engine
     function updateSlider() {
         const total = slides.length;
         if (total === 0) return;
@@ -149,9 +137,8 @@
                 slide.style.opacity = "1";
                 slide.style.filter = "none";
             } else {
-                const directionX = offset > 0 ? 1 : -1;
                 const rotateYValue = offset > 0 ? -30 : 30;
-                slide.style.transform = `translateX(${offset * 110}px) scale(0.8) rotateY(${rotateYValue}deg) translateZ(-40px)`;
+                slide.style.transform = `translateX(${offset * 140}px) scale(0.8) rotateY(${rotateYValue}deg) translateZ(-40px)`;
                 slide.style.zIndex = String(5 - Math.ceil(absOffset));
                 slide.style.opacity = "0.35"; 
                 slide.style.filter = "blur(2px) brightness(0.45)";
@@ -164,7 +151,6 @@
         updateSlider(); 
     }
 
-    // Bind individual manual slide clicks directly via event listener
     slides.forEach((slide) => {
         slide.addEventListener('click', () => {
             const idx = parseInt(slide.getAttribute('data-index'), 10);
@@ -175,11 +161,7 @@
         });
     });
 
-    // Auto-Scroll Hover Handlers (Triggers over any visible screen element)
-    document.addEventListener('mouseenter', startRotation, true);
-    document.addEventListener('mouseover', startRotation, true);
-    document.addEventListener('mouseleave', stopRotation, true);
-
+    // FIXED AUTO-SCROLL HOVER LOGIC
     function startRotation() {
         if (!rotationTimer) {
             rotationTimer = setInterval(moveNext, rotationSpeed);
@@ -193,14 +175,23 @@
         }
     }
 
-    // Audio Interaction Fix for Custom Embed Frame Structures
+    // Initialize Auto-play instantly on load
+    startRotation();
+
+    // Safely pause on hover over the container, restart when mouse leaves
+    if (container) {
+        container.addEventListener('mouseenter', stopRotation);
+        container.addEventListener('mouseleave', startRotation);
+    }
+
+    // Audio Frame Setup
     audioButton.addEventListener('click', function() {
         if (audio.paused) {
             audio.play()
                 .then(() => { audioButton.textContent = "MUTED"; })
                 .catch(err => {
                     console.log("Audio block error:", err);
-                    alert("Wix iframe policies are restricting audio playback permissions. Please click directly inside the frame canvas or review your Wix HTML Box permission toggles.");
+                    alert("iFrame configurations might be restricting autoplay. Click inside canvas area to initialize custom settings.");
                 });
         } else {
             audio.pause();
@@ -208,7 +199,6 @@
         }
     });
 
-    // Initial Layout Fire
     updateSlider();
 </script>
 </body>
