@@ -104,7 +104,7 @@
         }
         
         .arcade-title-text-fallback {
-            color: #ffffff;
+            color: #D4AF37;
             font-size: 5.5rem;
             font-weight: 900;
             letter-spacing: -2px;
@@ -132,21 +132,40 @@
                 transform: translateY(-64%); 
             }
         }
-        .audio-control-btn {
+                .audio-control-btn {
             position: absolute;
             bottom: 110px;
             left: 160px; 
-            background: transparent; 
+            background: rgba(0, 0, 0, 0.75); 
             color: #FFFFFF;
-            border: 0px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 20px; /* Added padding to give the button standard clickable structure */
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             z-index: 9999;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
+        
+        .audio-control-btn:hover {
+            transform: scale(1.08);
+            background: #000000;
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .audio-control-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            transition: fill 0.2s ease;
+        }
+
     </style>
 </head>
 <body>
@@ -154,7 +173,12 @@
     <audio id="bg-audio-player" loop crossorigin="anonymous">
         <source src="https://static.wixstatic.com/mp3/d89c2f_2a28902ec8cb46199d53e47f4098e2a0.mp3" type="audio/mpeg">
     </audio>
-    <button class="audio-control-btn" id="audio-toggle">PLAY BEAT</button>
+       <button class="audio-control-btn" id="audio-toggle" aria-label="Toggle Audio">
+        <svg xmlns="http://w3.org" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </button>
+
 
       <div class="arcade-title-float">
         <div class="arcade-title-text-fallback">THE<br>ARCADE<br>ERA</div>
@@ -248,20 +272,24 @@
         container.addEventListener('mouseleave', startRotation);
     }
 
-    // Audio Frame Setup
-    audioButton.addEventListener('click', function() {
+       audioButton.addEventListener('click', function() {
         if (audio.paused) {
             audio.play()
-                .then(() => { audioButton.textContent = "MUTED"; })
+                .then(() => { 
+                    // Turns the vector icon crimson when music plays
+                    audioButton.style.color = "#FFD700"; 
+                })
                 .catch(err => {
                     console.log("Audio block error:", err);
                     alert("iFrame configurations might be restricting autoplay. Click inside canvas area to initialize custom settings.");
                 });
         } else {
             audio.pause();
-            audioButton.textContent = "PLAY BEAT";
+            // Turns the vector icon white when music is paused
+            audioButton.style.color = "#FFFFFF"; 
         }
     });
+
 
     updateSlider();
 </script>
