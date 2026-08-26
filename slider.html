@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ar.Ti Off The Wall 3D Carousel</title>
+    <title>The Arcade Era Carousel</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-image: url('https://static.wixstatic.com/media/d89c2f_61cdf889a08f4f83acb6a1165f0f13ef~mv2.png'); 
-            background-size: left;
-            background-position: left;
+            background-image: url('https://static.wixstatic.com/media/d89c2f_5551891a53c5485cbaeec92a66041a8a~mv2.png'); 
+            background-size: bottom;
+            background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             font-family: system-ui, -apple-system, sans-serif;
@@ -19,11 +19,11 @@
             align-items: center;
             height: 100vh; 
             overflow: hidden;
-            padding-left: 50px; 
+            padding-left: 80px; 
             box-sizing: border-box;
             position: relative;
             /* Enable global 3D viewing perspective */
-            perspective: 1000px; 
+            perspective: 4000px; 
         }
         .slider-container {
             position: relative;
@@ -77,10 +77,10 @@
                 .fallback-text {
             position: absolute;
             color: #ffffff;
-            font-size: 1.2rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            letter-spacing: 1px;
-            opacity: 0.7;
+            letter-spacing: 3px;
+            opacity: 1.0;
             text-align: center;
             pointer-events: none;
             z-index: 1;
@@ -90,8 +90,8 @@
             position: absolute;
             right: 80px;                  
             top: 50%;
-            transform: translateY(-60%);  
-            width: 370px;             
+            transform: translateY(-90%);  
+            width: 400px;             
             z-index: 2;                   
             pointer-events: none;         
             opacity: 0;                   
@@ -109,7 +109,7 @@
             font-weight: 900;
             letter-spacing: -2px;
             text-transform: uppercase;
-            text-shadow: -4px 4px 0px #333, -8px 8px 20px rgba(0,0,0,0.8);
+            text-shadow: -8px 8px 0px #000000, -8px 8px 20px rgba(0,0,0,0.8);
             line-height: 1.1;
         }
 
@@ -129,14 +129,14 @@
                 transform: translateY(-50%);
             }
             50% {
-                transform: translateY(-54%); 
+                transform: translateY(-64%); 
             }
         }
         .audio-control-btn {
             position: absolute;
-            bottom: 60px;
+            bottom: 110px;
             left: 160px; 
-            background: #000000; 
+            background: transparent; 
             color: #FFFFFF;
             border: 0px solid rgba(255, 255, 255, 0.3);
             padding: 10px 20px; /* Added padding to give the button standard clickable structure */
