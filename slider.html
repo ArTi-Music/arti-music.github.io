@@ -1,17 +1,15 @@
-<!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Arcade Era Carousel</title>
-       <style>
-        @import url('https://googleapis.com');
-        body {
     <style>
+        @import url('https://googleapis.com');
         body {
             margin: 0;
             padding: 0;
-            background-image: url('https://static.wixstatic.com/media/d89c2f_5551891a53c5485cbaeec92a66041a8a~mv2.png'); 
+            background-image:             url('https://static.wixstatic.com/media/d89c2f_5551891a53c5485cbaeec92a66041a8a~mv2.png'); 
             background-size: bottom;
             background-position: center;
             background-repeat: no-repeat;
@@ -27,16 +25,22 @@
             position: relative;
             /* Enable global 3D viewing perspective */
             perspective: 4000px; 
-        }
-        .slider-container {
-            position: relative;
+      }
+        
+   .slider-container {
+            position: absolute;   /* FIXED: Lock to absolute space */
+            left: 80px;          /* Pins container to the far left side */
+            top: 50%;
+            transform: translateY(-50%);
             width: 360px; 
             height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: visible;
+            z-index: 10;
         }
+        
         .slider-wrapper {
             position: relative;
             width: 100%;
@@ -45,11 +49,12 @@
             align-items: center;
             justify-content: center;
             overflow: visible; /* Switched to visible to prevent 3D cropping */
+
         }
-        .slider-track {
+         .slider-track {
             position: relative;
-            width: 380px;  
-            height: 540px; 
+            width: 1980px;  
+            height: 840px; 
             transform-style: preserve-3d; /* FIXED: Must be preserve-3d to display depth */
             display: flex;
             justify-content: center;      /* FIXED: Balanced default alignment */
@@ -68,8 +73,8 @@
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s, filter 0.5s;
             opacity: 1; 
             backface-visibility: hidden;
-
-             /* Required to lock text info to the bottom of the card */
+            
+            /* Required to lock text info to the bottom of the card */
             position: relative;
         }
         .apparel-slide img {
@@ -79,6 +84,7 @@
             object-fit: contain; 
             pointer-events: none;
         }
+        
         /* ==========================================================================
            SAFE EMBEDDED TEXT LAYOUT (Will not impact your original slider variables)
            ========================================================================== */
@@ -131,18 +137,6 @@
             transform: translateY(0);
         }
 
-                .fallback-text {
-            position: absolute;
-            color: #ffffff;
-            font-size: 2.2rem;
-            font-weight: bold;
-            letter-spacing: 3px;
-            opacity: 1.0;
-            text-align: center;
-            pointer-events: none;
-            z-index: 1;
-        }
-
         .arcade-title-float {
             position: absolute;
             right: 80px;                  
@@ -159,7 +153,6 @@
             flex-direction: column;
             align-items: flex-start;
         }
-        
         .arcade-title-text-fallback {
             font-family: 'Press Start 2P', monospace, sans-serif;
             color: #D4AF37;
@@ -170,27 +163,16 @@
             text-shadow: -8px 8px 0px #000000, -8px 8px 20px rgba(0,0,0,0.8);
             line-height: 1.1;
         }
-
         @keyframes fadeInTitle {
-            0% {
-                opacity: 100;
-                transform: translateY(-46%) scale(0.95); 
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(-50%) scale(1);
-            }
+            0% { opacity: 0; transform: translateY(-46%) scale(0.95); }
+            100% { opacity: 1; transform: translateY(-50%) scale(1); }
+        }
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(-50%); }
+            50% { transform: translateY(-64%); }
         }
 
-        @keyframes gentleFloat {
-            0%, 100% {
-                transform: translateY(-50%);
-            }
-            50% {
-                transform: translateY(-64%); 
-            }
-        }
-                .audio-control-btn {
+        .audio-control-btn {
             position: absolute;
             bottom: 110px;
             left: 160px; 
@@ -210,20 +192,16 @@
             backdrop-filter: blur(4px);
             transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
-        
         .audio-control-btn:hover {
             transform: scale(1.08);
             background: #000000;
             border-color: rgba(255, 255, 255, 0.6);
         }
-
         .audio-control-btn svg {
             width: 22px;
             height: 22px;
             fill: currentColor;
-            transition: fill 0.2s ease;
         }
-
     </style>
 </head>
 <body>
@@ -231,30 +209,13 @@
     <audio id="bg-audio-player" loop crossorigin="anonymous">
         <source src="https://static.wixstatic.com/mp3/d89c2f_2a28902ec8cb46199d53e47f4098e2a0.mp3" type="audio/mpeg">
     </audio>
-       <button class="audio-control-btn" id="audio-toggle" aria-label="Toggle Audio">
+
+    <button class="audio-control-btn" id="audio-toggle" aria-label="Toggle Audio">
         <svg xmlns="http://w3.org" viewBox="0 0 24 24">
             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
         </svg>
     </button>
 
-
-      <div class="arcade-title-float">
-        <div class="arcade-title-text-fallback">THE<br>ARCADE<br>ERA</div>
-    </div>
-
-    <div class="slider-container">
-        <div class="slider-wrapper">
-            <div class="slider-track" id="apparel-track">
-                <div class="apparel-slide" data-index="0"><span
-                <div class="apparel-slide" data-index="0"><img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1"></div>
-                <div class="apparel-slide" data-index="1"><img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 2"></div>
-                <div class="apparel-slide" data-index="2"><img src="https://static.wixstatic.com/media/d89c2f_bb382e81730e4000bc657172c8c0a010~mv2.png" alt="Product 3"></div> 
-                <div class="apparel-slide" data-index="3"><img src="https://static.wixstatic.com/media/d89c2f_e3d59dc330ff49e9941d7d5218064dd4~mv2.png" alt="Product 4"></div> 
-                <div class="apparel-slide" data-index="4"><img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="Product 5"></div> 
-                <div class="apparel-slide" data-index="5"><img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="Product 6"></div> 
-            </div>
-        </div>
-    </div>
     <div class="arcade-title-float">
         <div class="arcade-title-text-fallback">the<br>arcade<br>era</div>
     </div>
@@ -264,11 +225,11 @@
             <div class="slider-track" id="apparel-track">
                 
                 <div class="apparel-slide" data-index="0">
-                    <img src="https://wixstatic.com" alt="Product 1">
+                    <img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1">
                     <div class="card-details-panel">
-                        <div class="card-title">Arcade Graphic Tee</div>
+                        <div class="card-title">Arcade Tee</div>
                         <div class="card-price">USD $93.48</div>
-                        <a class="card-btn" href="https://rofaiva.co.nz" target="_top">SHOP NOW</a>
+                        <a class="card-btn" href="https://www.rofaiva.co.nz/product-page/arcade-tee" target="_top">SHOP NOW</a>
                     </div>
                 </div>
                 
@@ -300,6 +261,7 @@
                 </div> 
                 
                 <div class="apparel-slide" data-index="4">
+                  
 <script>
     const track = document.getElementById('apparel-track');
     const slides = Array.from(track.children);
@@ -323,13 +285,13 @@
             
             if (offset === 0) {
                 slide.style.transform = `translateX(0px) scale(1.05) rotateY(0deg) translateZ(60px)`;
-                slide.style.zIndex = "10";
+                slide.style.zIndex = "1";
                 slide.style.opacity = "1";
                 slide.style.filter = "none";
             } else {
-                const rotateYValue = offset > 0 ? -30 : 30;
-                slide.style.transform = `translateX(${offset * 140}px) scale(0.8) rotateY(${rotateYValue}deg) translateZ(-40px)`;
-                slide.style.zIndex = String(5 - Math.ceil(absOffset));
+                const rotateYValue = offset > -5 ? -5 : -5;
+                slide.style.transform = `translateX(${offset * 140}px) scale(0.8) rotateY(${rotateYValue}deg) translateZ(10px)`;
+                slide.style.zIndex = String(10 - Math.ceil(absOffset));
                 slide.style.opacity = "0.35"; 
                 slide.style.filter = "blur(2px) brightness(0.45)";
             }
