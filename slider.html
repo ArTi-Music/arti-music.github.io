@@ -1,45 +1,39 @@
-            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Arcade Era Carousel</title>
     <style>
-        @import url('https://googleapis.com');
         body {
             margin: 0;
             padding: 0;
-            background-image: url('https://static.wixstatic.com/media/d89c2f_5551891a53c5485cbaeec92a66041a8a~mv2.png'); 
-            background-size: bottom;
-            background-position: center;
+            background-image: url('https://static.wixstatic.com/media/d89c2f_fc4391bff2b54460bb239861f8e292a9~mv2.png'); 
+            background-size: left;
+            background-position: left;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: Roboto, 'Press Start 2P', Monospace; 
+            font-family: 'Press Start 2P', system-ui;
             display: flex;
             justify-content: flex-start; 
             align-items: center;
             height: 100vh; 
             overflow: hidden;
-            padding-left: 80px; 
+            padding-left: 50px; 
             box-sizing: border-box;
-            position: relative;  /* Enable global 3D viewing perspective */
-            perspective: 4000px; 
-      }
-        
-   .slider-container {
-            position: absolute;   /* FIXED: Lock to absolute space */
-            left: 80px;          /* Pins container to the far left side */
-            top: 50%;
-            transform: translateY(-50%);
+            position: relative;
+           /* Enable global 3D viewing perspective */
+            perspective: 1000px; 
+        }
+        .slider-container {
+            position: relative;
             width: 360px; 
             height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: visible;
-            z-index: 10;
         }
-        
         .slider-wrapper {
             position: relative;
             width: 100%;
@@ -47,37 +41,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: visible; /* Switched to visible to prevent 3D cropping */
-
+            overflow: visible;/* Switched to visible to prevent 3D cropping */
         }
-         .slider-track {
+        .slider-track {
             position: relative;
             width: 380px;  
             height: 540px; 
-            transform-style: preserve-3d; /* FIXED: Must be preserve-3d to display depth */
+            transform-style: preserve-3d;
             display: flex;
-            justify-content: center;      /* FIXED: Balanced default alignment */
-            align-items: center;          /* FIXED: Clean standard syntax */
-        }
+            justify-content: center;
+            align-items: center;
+      }
         .apparel-slide {
             position: absolute;
-            width: 335px;  
-            height: 560px; 
+            width: 330px;  
+            height: 500px; 
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 45px 35px rgba(0, 0, 0, 0.75);
             background: #111111; 
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 0px solid rgba(255, 255, 255, 0.12);
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s, filter 0.5s;
             opacity: 1; 
             backface-visibility: hidden;
-            flex-shrink: 0 !important; /* Prevents flexbox from flattening your cards into skinny strips */
-            position: relative;
-                    
-            /* Required to lock text info to the bottom of the card */
-            position: relative;
         }
+              .slide-image-container {
+            width: 100%;
+            height: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+        }
+
         .apparel-slide img {
             display: block;
             width: 100%;
@@ -85,65 +82,45 @@
             object-fit: contain; 
             pointer-events: none;
         }
-        
-        /* ==========================================================================
-           SAFE EMBEDDED TEXT LAYOUT (Will not impact your original slider variables)
-           ========================================================================== */
-        .card-details-panel {
-            position: absolute;
-            bottom: 0;
-            left: 0;
+        /* Product Meta Details (Title and Price Container) */
+        .product-info-panel {
             width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0) 100%);
-            padding: 30px 15px 15px 15px;
+            padding: 10px 10px;
+            background: #000000;
+            border-top: #000000;
+            text-align: center;
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 5;
-            transition: opacity 0.3s ease;
         }
-        .card-title {
+        .product-title {
             color: #ffffff;
-            font-size: 0.9rem;
-            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            margin: 0 0 4px 0;
-            text-align: center;
         }
-        .card-price {
-            color: #D4AF37; 
-            font-size: 1.05rem;
+        .product-price {
+            color: #FFFFFF;
+            font-size: 0.8rem;
+            font-weight: medium;
+        }
+        .fallback-text {
+            position: absolute;
+            color: #D4AF37;
+            font-size: 1.6rem;
             font-weight: bold;
-            margin: 0 0 10px 0;
-        }
-        .card-btn {
-            background: #ffffff;
-            color: #000000;
-            text-decoration: none;
-            width: 80%;
-            padding: 8px 0;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.75rem;
+            letter-spacing: 1px;
+            opacity: 0.7;
             text-align: center;
-            text-transform: uppercase;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
         }
-        /* Show the shop button when you hover your mouse over a card */
-        .apparel-slide:hover .card-btn {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         .arcade-title-float {
             position: absolute;
             right: 80px;                  
             top: 50%;
-            transform: translateY(-90%);  
-            width: 400px;             
+            transform: translateY(-60%);  
+            width: 370px;             
             z-index: 2;                   
             pointer-events: none;         
             opacity: 0;                   
@@ -155,13 +132,12 @@
             align-items: flex-start;
         }
         .arcade-title-text-fallback {
-            font-family: Roboto, Press Start 2 P, Monospace;
             color: #D4AF37;
-            font-size: 5.5rem;
+            font-size: 5.8rem;
             font-weight: 900;
             letter-spacing: -2px;
             text-transform: uppercase;
-            text-shadow: -8px 8px 0px #000000, -8px 8px 20px rgba(0,0,0,0.8);
+            text-shadow: -7px 11px 0px #000000, -8px 8px 20px rgba(0,0,0,0.8);
             line-height: 1.1;
         }
         @keyframes fadeInTitle {
@@ -170,97 +146,109 @@
         }
         @keyframes gentleFloat {
             0%, 100% { transform: translateY(-50%); }
-            50% { transform: translateY(-64%); }
+            50% { transform: translateY(-54%); }
         }
-
+    
+         /* UPDATED ROUND MUSIC BUTTON STYLE */
         .audio-control-btn {
             position: absolute;
-            bottom: 110px;
-            left: 160px; 
-            background: rgba(0, 0, 0, 0.75); 
-            color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            bottom: 50px;
+            left: 50px; 
+            background: transparent; 
+            color: #ffffff;
+            border: 1px solid #FFFFFF;
             width: 50px;
             height: 50px;
-            padding: 0;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
             z-index: 9999;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            backdrop-filter: blur(4px);
-            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 10px; /* Added padding to give the button standard clickable structure */
+            transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
         }
         .audio-control-btn:hover {
             transform: scale(1.08);
-            background: #000000;
-            border-color: rgba(255, 255, 255, 0.6);
+            color: #D4AF37;
+            border-color: #D4AF37;
+            background-color: #000000;
         }
         .audio-control-btn svg {
             width: 22px;
             height: 22px;
             fill: currentColor;
         }
+       
+       /* State style updates to ensure gold color when playing, white when muted */
+        .audio-control-btn.playing {
+            color: #D4AF37;
+            border-color: #D4AF37;
+        }
     </style>
 </head>
 <body>
-
+  
+  
     <audio id="bg-audio-player" loop crossorigin="anonymous">
         <source src="https://static.wixstatic.com/mp3/d89c2f_2a28902ec8cb46199d53e47f4098e2a0.mp3" type="audio/mpeg">
     </audio>
-
+    
+    <!-- Cleaned Round Audio Button with Embedded SVG Music Note -->
     <button class="audio-control-btn" id="audio-toggle" aria-label="Toggle Audio">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24">
+        <svg viewBox="0 0 24 24" xmlns="http://w3.org">
             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-        </svg>
+  </svg>
     </button>
 
     <div class="arcade-title-float">
-        <div class="arcade-title-text-fallback">the<br>arcade<br>era</div>
+        <div class="arcade-title-text-fallback">THE<br>ARCADE<br>ERA</div>
     </div>
     
     <div class="slider-container">
         <div class="slider-wrapper">
             <div class="slider-track" id="apparel-track">
-                
+                <!-- Card 1 -->
                 <div class="apparel-slide" data-index="0">
-                    <img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1">
-                    <div class="card-details-panel">
-                        <div class="card-title">Arcade Tee</div>
-                        <div class="card-price">93.48 NZD</div>
-                        <a class="card-btn" href="https://www.rofaiva.co.nz/product-page/arcade-tee" target="_top">SHOP NOW</a>
+                    <div class="slide-image-container">
+                        <img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1">
+                    </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">Arcade Tee</div>
+                        <div class="product-price">93.48 NZD</div>
                     </div>
                 </div>
-                
+                <!-- Card 2 -->
                 <div class="apparel-slide" data-index="1">
-                    <img src="https://static.wixstatic.com/media/d89c2f_bb382e81730e4000bc657172c8c0a010~mv2.png" alt="Product 2">
-                    <div class="card-details-panel">
-                        <div class="card-title">The Arcade Hood</div>
-                        <div class="card-price">101.08 NZD</div>
-                        <a class="card-btn" href="https://rofaiva.co.nz/product-page/the-arcade-hood" target="_top">SHOP NOW</a>
+                    <div class="slide-image-container">
+                        <img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 2">
+                    </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">Arcade Tee</div>
+                        <div class="product-price">93.00 NZD</div>
                     </div>
                 </div>
-                
+                <!-- Card 3 -->
                 <div class="apparel-slide" data-index="2">
-                    <img src="https://static.wixstatic.com/media/d89c2f_5b117830a17a4c30a77931a70b08052d~mv2.png" alt="Product 3">
-                    <div class="card-details-panel">
-                        <div class="card-title">Arcade Tee</div>
-                        <div class="card-price">93.48 NZD</div>
-                        <a class="card-btn" href="https://rofaiva.co.nz/product-page/the-arcade-tee" target="_top">SHOP NOW</a>
+                    <div class="slide-image-container">
+                        <img src="https://static.wixstatic.com/media/d89c2f_bb382e81730e4000bc657172c8c0a010~mv2.png" alt="Product 3">
+                    </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">The Arcade Hood</div>
+                        <div class="product-price">101.08 NZD</div>
                     </div>
                 </div> 
-                
+                <!-- Card 4 -->
                 <div class="apparel-slide" data-index="3">
-                    <img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="Product 4">
-                    <div class="card-details-panel">
-                        <div class="card-title">Arcade Tee</div>
-                        <div class="card-price">101.08 NZD</div>
-                        <a class="card-btn" href="https://rofaiva.co.nz/product-page/arcade-tee" target="_top">SHOP NOW</a>
+                    <div class="slide-image-container">
+                       <img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="Product 4">
+                       </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">Arcade Tee</div>
+                        <div class="product-price">93.48 NZD</div>
                     </div>
                 </div> 
-                  
 <script>
     const track = document.getElementById('apparel-track');
     const slides = Array.from(track.children);
