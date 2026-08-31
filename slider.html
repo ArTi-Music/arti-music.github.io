@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Arcade Era Carousel</title>
+  
+<link href="https://googleapis.com" rel="stylesheet">
+  
     <style>
-        body {
+       body {
+          
             margin: 0;
             padding: 0;
             background-image: url('https://static.wixstatic.com/media/d89c2f_fc4391bff2b54460bb239861f8e292a9~mv2.png'); 
@@ -13,7 +17,7 @@
             background-position: left;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: 'Press Start 2P', system-ui;
+            font-family: 'Press Start 2P', system-ui, monospace;
             display: flex;
             justify-content: flex-start; 
             align-items: center;
@@ -59,7 +63,7 @@
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 45px 35px rgba(0, 0, 0, 0.75);
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.75);
             background: #111111; 
             border: 0px solid rgba(255, 255, 255, 0.12);
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s, filter 0.5s;
@@ -132,11 +136,12 @@
             align-items: flex-start;
         }
         .arcade-title-text-fallback {
+            font-family: 'Press Start 2P', system-ui, monospace !important;
             color: #D4AF37;
             font-size: 5.8rem;
             font-weight: 900;
             letter-spacing: -2px;
-            text-transform: uppercase;
+            text-transform: lowercase;
             text-shadow: -7px 11px 0px #000000, -8px 8px 20px rgba(0,0,0,0.8);
             line-height: 1.1;
         }
@@ -203,13 +208,13 @@
     </button>
 
     <div class="arcade-title-float">
-        <div class="arcade-title-text-fallback">THE<br>ARCADE<br>ERA</div>
+        <div class="arcade-title-text-fallback">the<br>arcade<br>era</div>
     </div>
     
     <div class="slider-container">
         <div class="slider-wrapper">
             <div class="slider-track" id="apparel-track">
-                <!-- Card 1 -->
+                             <!-- Card 1 -->
                 <div class="apparel-slide" data-index="0">
                     <div class="slide-image-container">
                         <img src="https://static.wixstatic.com/media/d89c2f_9df9958c984f40d1b43b2dba56c16f5d~mv2.png" alt="Product 1">
@@ -243,12 +248,56 @@
                 <div class="apparel-slide" data-index="3">
                     <div class="slide-image-container">
                        <img src="https://static.wixstatic.com/media/d89c2f_626e96a1fdf8475eaf7632e5328dc935~mv2.png" alt="Product 4">
-                       </div>
+                    </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">Arcade Tee</div>
+                        <div class="product-price">93.48 NZD</div>
+                     </div>
+                </div> 
+                <!-- Card 5 -->
+                <div class="apparel-slide" data-index="4">
+                    <div class="slide-image-container">
+                        <img src="https://static.wixstatic.com/media/d89c2f_e3d59dc330ff49e9941d7d5218064dd4~mv2.png" alt="Product 5">
+                    </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">The Arcade Hood</div>
+                        <div class="product-price">101.08 NZD</div>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="apparel-slide" data-index="5">
+                    <div class="slide-image-container">
+                        <img src="https://static.wixstatic.com/media/d89c2f_5849f828f3be450ea09bcf6f709bbc50~mv2.png" alt="Product 6">
+                    </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">Arcade Tee</div>
+                        <div class="product-price">93.00 NZD</div>
+                    </div>
+                </div>
+                <!-- Card 7 -->
+                <div class="apparel-slide" data-index="6">
+                    <div class="slide-image-container">
+                        <img src="https://static.wixstatic.com/media/d89c2f_7e0f84f40bb24b93b457c1f6e8fe2bdd~mv2.png" alt="Product 7">
+                    </div>
+                    <div class="product-info-panel">
+                        <div class="product-title">The Arcade Hood</div>
+                        <div class="product-price">101.08 NZD</div>
+                    </div>
+                </div> 
+                <!-- Card 8 -->
+                <div class="apparel-slide" data-index="7">
+                    <div class="slide-image-container">
+                       <img src="https://static.wixstatic.com/media/d89c2f_9cbc30e38cab4ba686a073d93582dec7~mv2.png" alt="Product 8">
+                    </div>
                     <div class="product-info-panel">
                         <div class="product-title">Arcade Tee</div>
                         <div class="product-price">93.48 NZD</div>
                     </div>
                 </div> 
+          </div>
+     </div>
+ </div>
+
 <script>
     const track = document.getElementById('apparel-track');
     const slides = Array.from(track.children);
@@ -258,7 +307,7 @@
     const audio = document.getElementById('bg-audio-player');
     const audioButton = document.getElementById('audio-toggle');
     let rotationTimer = null;
-    const rotationSpeed = 3000;
+    const rotationSpeed = 1000;
 
     function updateSlider() {
         const total = slides.length;
